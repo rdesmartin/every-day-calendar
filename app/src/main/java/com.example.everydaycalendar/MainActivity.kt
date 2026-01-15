@@ -1,11 +1,10 @@
 package com.example.everydaycalendar
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -16,24 +15,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.everydaycalendar.ui.calendarlist.CalendarListScreen
+import com.example.everydaycalendar.ui.calendarlist.CalendarListViewModel
 import com.example.everydaycalendar.ui.theme.EveryDayCalendarTheme
-import domain.Calendar
-import domain.CalendarRepository
-import java.time.LocalDate
-import java.util.UUID
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val calendarListViewModel: CalendarListViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             EveryDayCalendarTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Johnny",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                CalendarListScreen(calendarListViewModel)
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    Greeting(
+//                        name = "Johnny",
+//                        modifier = Modifier.padding(innerPadding)
+//                    )
+//                }
             }
         }
     }

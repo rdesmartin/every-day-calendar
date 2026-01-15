@@ -4,10 +4,10 @@ import domain.CalendarRepository
 import java.time.LocalDate
 import java.util.UUID
 
-class ForCreatingCalendar (
+class ForManagingCalendars (
     private val repo: CalendarRepository
 ) {
-    suspend operator fun invoke(
+    suspend fun createCalendar(
         title: String,
         startDate: LocalDate = LocalDate.now()
     ) {
@@ -18,4 +18,7 @@ class ForCreatingCalendar (
         )
         repo.create(calendar)
     }
+
+    suspend fun listCalendars(): List<Calendar> =
+        repo.list()
 }
