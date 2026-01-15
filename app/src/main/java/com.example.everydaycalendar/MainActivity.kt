@@ -15,40 +15,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.everydaycalendar.ui.calendarlist.CalendarListScreen
 import com.example.everydaycalendar.ui.calendarlist.CalendarListViewModel
 import com.example.everydaycalendar.ui.theme.EveryDayCalendarTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val calendarsListViewModel: CalendarListViewModel by viewModels()
-
+    private val calendarListViewModel: CalendarListViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             EveryDayCalendarTheme {
-                val calendars by viewModel.calendars.collectAsState()
-
-                LaunchedEffect(Unit) {
-                    viewModel.loadCalendars()
-                }
-
-                Column {
-                    Button(onClick = { viewModel.addCalendar("Daily Pushups") }) {
-                        Text("Add calendar")
-                    }
-
-                    calendars.forEach {
-                        Text(it.title)
-                    }
-                }
+                CalendarListScreen(calendarListViewModel)
 //                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 //                    Greeting(
 //                        name = "Johnny",
 //                        modifier = Modifier.padding(innerPadding)
 //                    )
-                }
+//                }
             }
         }
     }
