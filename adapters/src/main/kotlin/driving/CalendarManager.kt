@@ -1,24 +1,26 @@
-package usecase
+package driving
 import domain.Calendar
-import domain.CalendarRepository
+import ports.driven.CalendarRepository
+import ports.driving.ForManagingCalendars
 import java.time.LocalDate
 import java.util.UUID
 
-class ForManagingCalendars (
+class CalendarManager (
     private val repo: CalendarRepository
-) {
-    suspend fun createCalendar(
+) : ForManagingCalendars {
+    override suspend fun createCalendar(
         title: String,
-        startDate: LocalDate = LocalDate.now()
-    ) {
+        startDate: LocalDate
+    ): UUID {
         val calendar = Calendar(
             id = UUID.randomUUID(),
             title = title,
             startDate = startDate
         )
         repo.create(calendar)
+        return calendar.id
     }
 
-    suspend fun listCalendars(): List<Calendar> =
+    override suspend fun listCalendars(): List<Calendar> =
         repo.list()
 }

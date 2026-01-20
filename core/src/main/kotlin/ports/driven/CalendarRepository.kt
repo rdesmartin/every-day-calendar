@@ -1,5 +1,7 @@
-package domain
+package ports.driven
 
+import domain.Calendar
+import domain.DayEntry
 import java.time.LocalDate
 import java.util.UUID
 
@@ -11,5 +13,7 @@ interface CalendarRepository {
 
     suspend fun getDays(calendarId: UUID): List<DayEntry>
 
-    suspend fun toggleDay(calendarId: UUID, date: LocalDate)
+    suspend fun toggleDay(calendarId: UUID, date: LocalDate): Boolean
+
+    suspend fun getDay(calendarId: UUID, date: LocalDate)
 }

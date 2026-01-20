@@ -1,12 +1,10 @@
-package repository
+package driven
 
 import fake.CalendarRepositoryFake
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Test
-import usecase.ForManagingCalendars
+import driving.ForManagingCalendars
 import java.time.LocalDate
 
 class ForManagingCalendarsTests {

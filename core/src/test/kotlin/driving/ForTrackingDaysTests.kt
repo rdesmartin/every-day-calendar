@@ -1,4 +1,4 @@
-package usecase
+package driving
 
 import fake.CalendarRepositoryFake
 import kotlinx.coroutines.test.runTest
@@ -15,7 +15,7 @@ class ForTrackingDaysTests {
         val startDate = LocalDate.of(2026, 1, 1)
         val repo = CalendarRepositoryFake()
         val create = ForManagingCalendars(repo)
-        val daysManager = ForTrackingDays(repo)
+        val daysManager = DaysTracker(repo)
         create.createCalendar("Pet the cats", startDate)
         val calendarManager = ForManagingCalendars(repo)
         calendarManager.createCalendar("Pet the cats", startDate)

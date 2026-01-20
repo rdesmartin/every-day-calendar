@@ -1,7 +1,7 @@
 package fake
 
 import domain.Calendar
-import domain.CalendarRepository
+import ports.driven.CalendarRepository
 import domain.DayEntry
 import java.time.LocalDate
 import java.util.UUID

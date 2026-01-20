@@ -4,16 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import domain.Calendar
+import driving.CalendarManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import usecase.ForManagingCalendars
 import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
 class CalendarListViewModel @Inject constructor(
-    private val _calendar: ForManagingCalendars,
+    private val _calendar: CalendarManager,
 ) : ViewModel() {
 
     private val _calendars = MutableStateFlow<List<Calendar>>(emptyList())

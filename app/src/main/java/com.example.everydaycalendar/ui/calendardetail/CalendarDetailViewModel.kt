@@ -7,16 +7,18 @@ import domain.DayEntry
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import usecase.ForManagingCalendars
 import java.time.LocalDate
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import usecase.ForTrackingDays
+import driving.CalendarManager
+import driving.DaysTracker
+import ports.driving.ForManagingCalendars
+import ports.driving.ForTrackingDays
 
 @HiltViewModel
 class CalendarDetailViewModel @Inject constructor(
-    private val _calendar: ForManagingCalendars,
-    private val _days: ForTrackingDays
+    private val _calendarManager: CalendarManager,
+    private val _daysTracker: DaysTracker
 ) : ViewModel() {
 
     private val _calendarDays = MutableStateFlow<List<DayEntry>>(emptyList())
@@ -27,7 +29,7 @@ class CalendarDetailViewModel @Inject constructor(
     fun loadCalendar(calendarId: java.util.UUID) {
         viewModelScope.launch {
             // Get calendar details (here, from listCalendars; you might want a getById)
-            val calendar = _calendar.listCalendars().find { it.id == calendarId }
+            val calendar = _calendarManager.listCalendars().find { it.id == calendarId }
             if (calendar == null) {
                 // handle error: calendar not found
                 return@launch
@@ -35,7 +37,7 @@ class CalendarDetailViewModel @Inject constructor(
             currentCalendar = calendar
 
             // Load DayEntries from repo
-            val days = _days.getDays(calendarId)
+            val days = _daysTracker.getDays(calendarId)
 
             _calendarDays.value = days
         }
@@ -44,9 +46,9 @@ class CalendarDetailViewModel @Inject constructor(
     fun toggleDay(date: LocalDate) {
         viewModelScope.launch {
             currentCalendar?.let {
-                _days.toggleDay(it.id, date)
+                _daysTracker.toggleDay(it.id, date)
                 // reload days after toggle
-                _calendarDays.value = _days.getDays(it.id)
+                _calendarDays.value = _daysTracker.getDays(it.id)
             }
         }
     }

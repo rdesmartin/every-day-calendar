@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import domain.CalendarRepository
-import repository.StubCalendarRepository
+import ports.driven.CalendarRepository
+import driven.StubCalendarRepository
 import javax.inject.Singleton
 
 @Module
