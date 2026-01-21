@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Every Day Calendar"
 include(":app")
 include(":core")
-include(":data")
+include(":adapters")
