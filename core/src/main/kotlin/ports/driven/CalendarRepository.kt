@@ -11,6 +11,8 @@ interface CalendarRepository {
 
     suspend fun list(): List<Calendar>
 
+    suspend fun getById(calendarId: UUID): Calendar?
+
     suspend fun getDays(calendarId: UUID): List<DayEntry>
 
     suspend fun toggleDay(calendarId: UUID, date: LocalDate): Boolean

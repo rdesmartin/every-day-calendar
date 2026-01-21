@@ -24,16 +24,15 @@ class CalendarDetailViewModel @Inject constructor(
     private val _calendarDays = MutableStateFlow<List<DayEntry>>(emptyList())
     val calendarDays: StateFlow<List<DayEntry>> = _calendarDays
 
-    private var currentCalendar: Calendar? = null
+
+    var currentCalendar: Calendar? = null
 
     fun loadCalendar(calendarId: java.util.UUID) {
         viewModelScope.launch {
             // Get calendar details (here, from listCalendars; you might want a getById)
-            val calendar = _calendarManager.listCalendars().find { it.id == calendarId }
-            if (calendar == null) {
-                // handle error: calendar not found
+            val calendar =
+                _calendarManager.getById(calendarId) ?: // handle error: calendar not found
                 return@launch
-            }
             currentCalendar = calendar
 
             // Load DayEntries from repo

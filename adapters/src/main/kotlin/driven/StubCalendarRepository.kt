@@ -19,6 +19,9 @@ class StubCalendarRepository : CalendarRepository {
     override suspend fun list(): List<Calendar> =
         calendars.values.toList()
 
+    override suspend fun getById(calendarId: UUID): Calendar? =
+        calendars.values.find {it.id == calendarId }
+
     override suspend fun getDays(calendarId: UUID): List<DayEntry> =
         days.values.filter { it.calendarId == calendarId }
 
@@ -38,4 +41,5 @@ class StubCalendarRepository : CalendarRepository {
     override suspend fun getDay(calendarId: UUID, date: LocalDate) {
         days.values.filter { it.calendarId == calendarId && it.date == date }
     }
+
 }

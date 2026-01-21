@@ -23,4 +23,7 @@ class CalendarManager (
 
     override suspend fun listCalendars(): List<Calendar> =
         repo.list()
+
+    override suspend fun getById(id: UUID): Calendar? =
+        repo.getById(id)
 }

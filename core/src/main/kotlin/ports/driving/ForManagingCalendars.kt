@@ -11,4 +11,5 @@ interface ForManagingCalendars {
     ): UUID
 
     suspend fun listCalendars(): List<Calendar>
+    suspend fun getById(id: UUID): Calendar?
 }

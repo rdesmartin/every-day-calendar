@@ -9,11 +9,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class CalendarListViewModel @Inject constructor(
-    private val _calendar: CalendarManager,
+    private val _calendarManager: CalendarManager,
 ) : ViewModel() {
 
     private val _calendars = MutableStateFlow<List<Calendar>>(emptyList())
@@ -21,17 +22,17 @@ class CalendarListViewModel @Inject constructor(
 
     fun loadCalendars() {
         viewModelScope.launch {
-            _calendars.value = _calendar.listCalendars()
+            _calendars.value = _calendarManager.listCalendars()
         }
     }
 
     fun addCalendar(title: String) {
         viewModelScope.launch {
-            _calendar.createCalendar(
+            _calendarManager.createCalendar(
                 title = title,
                 startDate = LocalDate.now()
             )
-            loadCalendars()
         }
+        loadCalendars()
     }
 }
