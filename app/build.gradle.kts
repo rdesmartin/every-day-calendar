@@ -56,6 +56,8 @@ dependencies {
     implementation(project(":adapters"))
     implementation(project(":core"))
     implementation("com.google.dagger:hilt-android:2.57.2")
+    implementation(libs.identity.jvm)
+    implementation(libs.androidx.navigation.compose)
     kapt("com.google.dagger:hilt-android-compiler:2.57.2")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

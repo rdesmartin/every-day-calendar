@@ -26,11 +26,11 @@ class CalendarListViewModel @Inject constructor(
         }
     }
 
-    fun addCalendar(title: String) {
+    fun addCalendar(title: String, startDate : LocalDate = LocalDate.now()) {
         viewModelScope.launch {
             _calendarManager.createCalendar(
                 title = title,
-                startDate = LocalDate.now()
+                startDate = startDate
             )
         }
         loadCalendars()
