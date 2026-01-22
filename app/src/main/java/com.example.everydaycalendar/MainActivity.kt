@@ -9,8 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.everydaycalendar.ui.calendardetail.CalendarDetailScreen
-import com.example.everydaycalendar.ui.calendarlist.CalendarListScreen
-import com.example.everydaycalendar.ui.calendarlist.CalendarListViewModel
+import com.example.everydaycalendar.ui.calendarmenu.CalendarMenuScreen
+import com.example.everydaycalendar.ui.calendarmenu.CalendarListViewModel
 import com.example.everydaycalendar.ui.theme.EveryDayCalendarTheme
 import dagger.hilt.android.AndroidEntryPoint
 import ui.calendardetail.CalendarDetailViewModel
@@ -31,17 +31,8 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navController,
-                    startDestination = "calendarList"
+                    startDestination = "calendarMenutest"
                 ) {
-                    composable("calendarList") {
-                        CalendarListScreen(
-                            onCalendarClick = { id ->
-                                navController.navigate("calendarDetail/$id")
-                            },
-                            viewModel = calendarListViewModel
-                        )
-                    }
-
                     composable(
                         route = "calendarDetail/{calendarId}"
                     ) { backStackEntry ->
@@ -51,9 +42,24 @@ class MainActivity : ComponentActivity() {
 
                         CalendarDetailScreen(
                             calendarId = id,
-                            viewModel = calendarDetailViewModel
+                            viewModel = calendarDetailViewModel,
+                            openCalendarMenu = {
+                                navController.navigate("calendarMenu")
+                            }
                         )
                     }
+
+                    composable("calendarMenu") {
+                        CalendarMenuScreen(
+                            onCalendarClick = { id ->
+                                navController.navigate("calendarDetail/$id") {
+                                    popUpTo("calendarMenu") { inclusive = true }
+                                }
+                            },
+                            viewModel = calendarListViewModel
+                        )
+                    }
+
                 }
             }
         }

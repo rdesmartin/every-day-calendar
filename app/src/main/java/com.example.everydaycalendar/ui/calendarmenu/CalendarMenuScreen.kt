@@ -1,4 +1,4 @@
-package com.example.everydaycalendar.ui.calendarlist
+package com.example.everydaycalendar.ui.calendarmenu
 
 import android.util.Log
 import androidx.compose.foundation.clickable
@@ -13,7 +13,7 @@ import java.time.LocalDate
 import java.util.UUID
 
 @Composable
-fun CalendarListScreen(
+fun CalendarMenuScreen(
     onCalendarClick: (UUID) -> Unit,
     viewModel: CalendarListViewModel
 ) {
@@ -29,7 +29,27 @@ fun CalendarListScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        OutlinedTextField(
+        Text(
+            text = "Calendars",
+            style = MaterialTheme.typography.titleLarge
+        )
+        Spacer(Modifier.height(16.dp))
+        LazyColumn {
+            items(calendars) { calendar ->
+                Text(
+                    text = calendar.title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .clickable {
+                            Log.d("test", calendar.durationDays.toString())
+                            onCalendarClick(calendar.id)
+                        }
+                )
+            }
+        }
+
+        TextField(
             value = title,
             onValueChange = { title = it },
             label = { Text("Calendar title") },
@@ -46,20 +66,5 @@ fun CalendarListScreen(
         }
 
         Spacer(Modifier.height(16.dp))
-
-        LazyColumn {
-            items(calendars) { calendar ->
-                Text(
-                    text = calendar.title,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .clickable {
-                            Log.d("test", calendar.durationDays.toString())
-                            onCalendarClick(calendar.id)
-                        }
-                )
-            }
-        }
     }
 }
