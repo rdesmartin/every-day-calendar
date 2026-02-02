@@ -31,7 +31,7 @@ class CalendarListViewModel @Inject constructor(
                 title = title,
                 startDate = startDate
             )
+            loadCalendars()
         }
-        loadCalendars()
     }
 }

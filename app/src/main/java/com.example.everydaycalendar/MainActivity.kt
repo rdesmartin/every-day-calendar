@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navController,
-                    startDestination = "calendarMenutest"
+                    startDestination = "calendarMenu"
                 ) {
                     composable(
                         route = "calendarDetail/{calendarId}"
