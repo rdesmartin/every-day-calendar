@@ -22,6 +22,7 @@ fun CalendarGrid(
         .map { it.date }
         .toSet()
 
+    // create list of all days from start of calendar to end of year
     val allDates = (0 until calendar.durationDays).map {
         calendar.startDate.plusDays(it.toLong())
     }

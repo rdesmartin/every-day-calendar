@@ -38,8 +38,13 @@ class StubCalendarRepository : CalendarRepository {
         }
     }
 
-    override suspend fun getDay(calendarId: UUID, date: LocalDate) {
-        days.values.filter { it.calendarId == calendarId && it.date == date }
+    override suspend fun getDayEntry(calendarId: UUID, date: LocalDate): DayEntry? {
+        val dayEntry = days.values.filter { it.calendarId == calendarId && it.date == date }
+        return if (dayEntry.isNotEmpty()) {
+            dayEntry.first()
+        } else {
+            null
+        }
     }
 
 }

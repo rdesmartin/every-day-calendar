@@ -17,5 +17,5 @@ interface CalendarRepository {
 
     suspend fun toggleDay(calendarId: UUID, date: LocalDate): Boolean
 
-    suspend fun getDay(calendarId: UUID, date: LocalDate)
+    suspend fun getDayEntry(calendarId: UUID, date: LocalDate): DayEntry?
 }
